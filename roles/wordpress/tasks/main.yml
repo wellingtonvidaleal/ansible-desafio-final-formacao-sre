@@ -1,8 +1,8 @@
 ---
-  - name: Aborta se usuário do DB for inválido
-    fail:
-      msg: A variável wordpress_db_user não pode ser 'root'
-    when: '{{ wordpress_db_user }} == "root"'
+  # - name: Aborta se usuário do DB for inválido
+  #   fail:
+  #     msg: A variável wordpress_db_user não pode ser 'root'
+  #   when: '{{ wordpress_db_user }} == "root"'
 
   - name: Instalacao do nginx e php para o funcionamento do Wordpress
     apt:
