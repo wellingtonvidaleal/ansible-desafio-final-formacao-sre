@@ -22,6 +22,8 @@
       - php7.4-gd
       - php7.4-json
       - mysql-client
+      - python3-mysqldb
+      - libmysqlclient-dev
       update_cache: yes
       state: present
   
