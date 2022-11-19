@@ -21,6 +21,10 @@
       - php7.4-common
       - php7.4-gd
       - php7.4-json
+      #Novas insercoes
+      - php7.4-intl
+      - php7.4-soap
+      - php7.4-xmlrpc
       - mysql-client
       - python3-mysqldb
       - libmysqlclient-dev
