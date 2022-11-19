@@ -28,6 +28,8 @@
       - mysql-client
       - python3-mysqldb
       - libmysqlclient-dev
+      - nfs-common
+      - amazon-efs-utils
       update_cache: yes
       state: present
   
@@ -55,7 +57,30 @@
       mode: '0755'
       recurse: yes
 
-  - name: restarted nginx
+  - name: Reiniciando o Nginx
     service:
       name: nginx
       state: restarted
+
+  - name: Criando o diretorio upload
+    ansible.builtin.file:
+      path: /uploads
+      state: directory
+      mode: '0777'
+
+  - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
+    ansible.builtin.lineinfile:
+      path: /etc/fstab
+      state: present
+      line: '{{ efs_to_mount }}:/ /uploads efs defaults,nofail,_netdev 0 0'
+
+  - name: Executando o mount -a para montar o disco imediatamente
+    ansible.builtin.command: mount -a
+
+  - name: Create a symbolic link
+    ansible.builtin.file:
+      src: /var/www/html/wordpress
+      dest: /uploads
+      owner: www-data
+      group: www-data
+      state: link
