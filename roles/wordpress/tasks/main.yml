@@ -21,6 +21,7 @@
       - php7.4-common
       - php7.4-gd
       - php7.4-json
+      - mysql-client
       update_cache: yes
       state: present
   
@@ -45,7 +46,8 @@
       path: /var/www/html/wordpress
       owner: www-data
       group: www-data
-      mode: '0755' 
+      mode: '0755'
+      recurse: yes
 
   - name: restarted nginx
     service:
