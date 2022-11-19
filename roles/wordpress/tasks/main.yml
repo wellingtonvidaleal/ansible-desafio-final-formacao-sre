@@ -74,7 +74,7 @@
       state: present
       line: '{{ efs_to_mount }}:/ /uploads efs defaults,nofail,_netdev 0 0'
 
-  - name: Executando o mount -a para montar o disco imediatamente
+  - name: Executando o mount a para montar o disco imediatamente
     ansible.builtin.command: mount -a
 
   - name: Create a symbolic link
