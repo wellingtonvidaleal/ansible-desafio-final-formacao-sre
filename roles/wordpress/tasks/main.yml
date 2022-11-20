@@ -77,7 +77,7 @@
   - name: Executando o mount para montar o disco imediatamente
     mount:
       path: /uploads
-      src: {{ efs_to_mount }}
+      src: '{{ efs_to_mount }}'
       fstype: efs
       state: present
 
