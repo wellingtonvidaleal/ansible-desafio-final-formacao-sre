@@ -65,6 +65,8 @@
     ansible.builtin.file:
       path: /uploads
       state: directory
+      owner: www-data
+      group: www-data
       mode: '0777'
 
   - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
