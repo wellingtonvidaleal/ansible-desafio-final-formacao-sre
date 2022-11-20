@@ -61,20 +61,14 @@
       name: nginx
       state: restarted
 
-  - name: Criando o diretorio upload
-    ansible.builtin.file:
-      path: /uploads
-      state: directory
-      owner: www-data
-      group: www-data
-      mode: '0777'
-
-  - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
-    ansible.builtin.lineinfile:
-      path: /etc/fstab
-      state: present
-      line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
-
+  # - name: Criando o diretorio upload
+  #   ansible.builtin.file:
+  #     path: /uploads
+  #     state: directory
+  #     owner: www-data
+  #     group: www-data
+  #     mode: '0777'
+  
   - name: Create a symbolic link
     ansible.builtin.file:
       src: /var/www/html/wordpress
@@ -82,3 +76,9 @@
       owner: www-data
       group: www-data
       state: link
+
+  - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
+    ansible.builtin.lineinfile:
+      path: /etc/fstab
+      state: present
+      line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
