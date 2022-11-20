@@ -64,11 +64,6 @@
       state: directory
       mode: '0755'
 
-  - name: Reiniciando o Nginx
-    service:
-      name: nginx
-      state: restarted
-
   - name: Create a symbolic link
     ansible.builtin.file:
       src: /var/www/html/wordpress/wp-content/uploads
@@ -100,6 +95,11 @@
     template:
       src: php.ini.j2
       dest: /etc/php/7.4/cli/php.ini
+
+  - name: Reiniciando o Nginx
+    service:
+      name: nginx
+      state: restarted
 
   - name: Reiniciando o php7.4-fpm
     service:
