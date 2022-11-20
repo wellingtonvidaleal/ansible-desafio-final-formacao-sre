@@ -29,6 +29,9 @@
       - python3-mysqldb
       - libmysqlclient-dev
       - nfs-common
+      - php7.4-pecl-memcache
+      - php7.4-memcached
+      - php7.4-memcache
       update_cache: yes
       state: present
   
