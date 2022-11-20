@@ -84,11 +84,12 @@
       state: present
       line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
   
-  # - name: Configurando o memcached no arquivo php.ini
-  #   ansible.builtin.lineinfile:
-  #     path: /etc/php/7.4/cli/php.ini
-  #     regexp: '^session.save_handler = files'
-  #     line: 'session.save_handler = memcached'
+  - name: Configurando o memcached no arquivo php.ini
+    ansible.builtin.lineinfile:
+      path: /etc/php/7.4/cli/php.ini
+      regexp: '^session.save_handler = files'
+      line: 'session.save_handler = memcached'
+      insertafter: 'session.save_path = "{{ session_save_path }}"'
 
   # - name: Configurando session.save_path do memcached para apontar para o endpoint do elasticache
   #   ansible.builtin.lineinfile:
