@@ -61,17 +61,9 @@
       name: nginx
       state: restarted
 
-  # - name: Criando o diretorio upload
-  #   ansible.builtin.file:
-  #     path: /uploads
-  #     state: directory
-  #     owner: www-data
-  #     group: www-data
-  #     mode: '0777'
-  
   - name: Create a symbolic link
     ansible.builtin.file:
-      src: /var/www/html/wordpress
+      src: /var/www/html/wordpress/wp-content/uploads
       dest: /uploads
       owner: www-data
       group: www-data
