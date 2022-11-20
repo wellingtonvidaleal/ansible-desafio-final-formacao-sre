@@ -87,12 +87,12 @@
   - name: Configurando o memcached no arquivo php.ini
     ansible.builtin.lineinfile:
       path: /etc/php/7.4/cli/php.ini
-      search_string: 'session.save_handler = files'
+      regexp: '^session.save_handler = files'
       line: 'session.save_handler = memcached'
 
   - name: Configurando session.save_path do memcached para apontar para o endpoint do elasticache
     ansible.builtin.lineinfile:
       path: /etc/php/7.4/cli/php.ini
-      search_string: 'session.save_handler = memcached'
-      insertafter: 'session.save_handler = memcached'
+      regexp: '^session.save_handler = files'
+      insertafter: '^session.save_handler = files'
       line: 'session.save_path = "{{ session_save_path }}"'
