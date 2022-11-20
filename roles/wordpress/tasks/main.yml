@@ -4,7 +4,7 @@
   #     msg: A variável wordpress_db_user não pode ser 'root'
   #   when: '{{ wordpress_db_user }} == "root"'
 
-  - name: Instalacao do nginx e php para o funcionamento do Wordpress
+  - name: Instalando o Nginx e PHP para o funcionamento do Wordpress
     apt:
       pkg:
       - nginx
@@ -34,7 +34,7 @@
       update_cache: yes
       state: present
   
-  - name: Configuracao do vhost nginx
+  - name: Configurando vhost Nginx
     copy:
       src: vhost.nginx.conf
       dest: /etc/nginx/sites-enabled/default 
@@ -57,6 +57,12 @@
       group: www-data
       mode: '0755'
       recurse: yes
+
+  - name: Criando diretorio de uploads dentro do projeto Wordpress
+    ansible.builtin.file:
+      path: /var/www/html/wordpress/wp-content/uploads
+      state: directory
+      mode: '0755'
 
   - name: Reiniciando o Nginx
     service:
