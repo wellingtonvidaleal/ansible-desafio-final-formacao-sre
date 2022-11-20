@@ -75,6 +75,7 @@
       dest: /uploads
       owner: www-data
       group: www-data
+      mode: '0755'
       state: link
 
   - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
