@@ -3,6 +3,7 @@ wordpress_db_host: change_me
 wordpress_db_name: change_me
 wordpress_db_username: change_me
 wordpress_db_password: change_me
-efs_to_mount: change_me
+file_system_id: change_me
+aws_region: change_me
 
 wordpress_address: change_me
