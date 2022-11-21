@@ -1,8 +1,4 @@
 ---
-  # - name: Aborta se usuário do DB for inválido
-  #   fail:
-  #     msg: A variável wordpress_db_user não pode ser 'root'
-  #   when: '{{ wordpress_db_user }} == "root"'
 
   - name: Instalando o Nginx e PHP para o funcionamento do Wordpress
     apt:
@@ -21,7 +17,6 @@
       - php7.4-common
       - php7.4-gd
       - php7.4-json
-      #Novas insercoes
       - php7.4-intl
       - php7.4-soap
       - php7.4-xmlrpc
@@ -79,22 +74,25 @@
       state: present
       line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
   
-  # - name: Configurando o memcached no arquivo php.ini
-  #   ansible.builtin.lineinfile:
-  #     path: /etc/php/7.4/cli/php.ini
-  #     regexp: '^session.save_handler = files'
-  #     line: 'session.save_handler = memcached'
-
-  # - name: Configurando session.save_path do memcached para apontar para o endpoint do elasticache
-  #   ansible.builtin.lineinfile:
-  #     path: /etc/php/7.4/cli/php.ini
-  #     insertafter: 'session.save_handler = memcached'
-  #     line: 'session.save_path = "{{ session_save_path }}"'
-
   - name: Alterando o arquivo php.ini
     template:
       src: php.ini.j2
       dest: /etc/php/7.4/cli/php.ini
+
+  - name: Criando diretorio ssls dentro do diretório do Nginx
+    ansible.builtin.file:
+      path: /etc/nginx/ssls
+      state: directory
+  
+  - name: Copiando o arquivo certificate.crt para o diretório ssls do Nginx
+    copy:
+      src: certificate.crt
+      dest: /etc/nginx/ssls/
+  
+  - name: Copiando o arquivo private.pem para o diretório ssls do Nginx
+    copy:
+      src: private.pem
+      dest: /etc/nginx/ssls/
 
   - name: Reiniciando o Nginx
     service:
