@@ -77,7 +77,7 @@
   - name: Alterando o arquivo php.ini
     template:
       src: php.ini.j2
-      dest: /etc/php/7.4/cli/php.ini
+      dest: /etc/php/7.4/fpm/php.ini
 
   - name: Criando diretorio ssls dentro do diretório do Nginx
     ansible.builtin.file:
