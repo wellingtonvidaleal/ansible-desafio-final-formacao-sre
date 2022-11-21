@@ -94,6 +94,11 @@
       src: files/private.pem
       dest: /etc/nginx/ssls/
 
+  - name: Copiando o arquivo phpinfo.php para o diretorio raiz do wordpress
+    copy:
+      src: files/phpinfo.php
+      dest: /var/www/html/wordpress/
+
   - name: Reiniciando o Nginx
     service:
       name: nginx
