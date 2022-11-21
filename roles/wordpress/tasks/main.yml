@@ -87,12 +87,12 @@
   - name: Copiando o arquivo certificate.crt para o diretório ssls do Nginx
     copy:
       src: certificate.crt
-      dest: /etc/nginx/ssls/
+      dest: /etc/nginx/ssls/certificate.crt
   
   - name: Copiando o arquivo private.pem para o diretório ssls do Nginx
     copy:
       src: private.pem
-      dest: /etc/nginx/ssls/
+      dest: /etc/nginx/ssls/private.pem
 
   - name: Reiniciando o Nginx
     service:
