@@ -88,11 +88,13 @@
     copy:
       src: certificate.crt
       dest: /etc/nginx/ssls/certificate.crt
+      remote_src: yes
   
   - name: Copiando o arquivo private.pem para o diretório ssls do Nginx
     copy:
       src: private.pem
       dest: /etc/nginx/ssls/private.pem
+      remote_src: yes
 
   - name: Reiniciando o Nginx
     service:
