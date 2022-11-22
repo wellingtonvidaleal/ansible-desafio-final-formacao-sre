@@ -66,11 +66,7 @@
     ansible.builtin.file:
       src: /var/www/html/wordpress/wp-content/uploads
       dest: /uploads
-      owner: www-data
-      group: www-data
-      mode: '0755'
       state: link
-      recurse: yes
 
   - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
     ansible.builtin.lineinfile:
