@@ -9,5 +9,5 @@ session_save_path: change_me
 
 wordpress_address: change_me
 
-WP_HOME: https://example.com
-WP_SITEURL: https://example.com
+wordpress_wp_home: https://example.com
+wordpress_wp_siteurl: https://example.com
