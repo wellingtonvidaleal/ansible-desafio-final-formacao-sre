@@ -8,3 +8,6 @@ aws_region: change_me
 session_save_path: change_me
 
 wordpress_address: change_me
+
+WP_HOME: https://example.com
+WP_SITEURL: https://example.com
