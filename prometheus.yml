@@ -1,0 +1,8 @@
+---
+  - name: Instalacao e configuracao do Prometheus e Grafana
+    hosts: all
+    become: yes
+    
+    roles:
+      - prometheus
+      - grafana

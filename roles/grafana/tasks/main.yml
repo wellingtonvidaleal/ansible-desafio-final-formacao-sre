@@ -1,0 +1,19 @@
+---
+
+  - name: Instalando o Grafana
+    apt:
+      pkg:
+      - adduser
+      - libfontconfig1
+      update_cache: yes
+      state: present
+  
+  - name : Baixando o .deb do Grafana 
+    ansible.builtin.unarchive:
+      src: https://dl.grafana.com/enterprise/release/grafana-enterprise_9.3.1_amd64.deb
+      dest: ~/
+      remote_src: yes
+
+  - dpkg_selections:
+    name: grafana-enterprise_9.3.1_amd64
+    selection: hold
