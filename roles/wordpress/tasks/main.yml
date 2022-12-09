@@ -62,7 +62,7 @@
       mode: '0755'
       recurse: yes
 
-  - name: Create a symbolic link
+  - name: Criando o link simbolico do diretorio uploads
     ansible.builtin.file:
       src: /var/www/html/wordpress/wp-content/uploads
       dest: /uploads

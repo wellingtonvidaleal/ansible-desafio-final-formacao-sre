@@ -4,4 +4,5 @@
     become: yes
     
     roles:
-      - wordpress 
+      - wordpress
+      - node_exporter
