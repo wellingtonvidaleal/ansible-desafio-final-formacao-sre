@@ -1,6 +1,6 @@
 ---
 
-  - name: update and install prometheus
+- name: update and install prometheus
   apt:
     name: prometheus
     state: latest
@@ -37,6 +37,7 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+
 - name: reload_prometheus
   uri:
     url: http://localhost:9090/-/reload
