@@ -1,0 +1,7 @@
+---
+  - name: Instalacao e configuracao do node exporter do Prometheus
+    hosts: all
+    become: yes
+    
+    roles:
+      - node_exporter
