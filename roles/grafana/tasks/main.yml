@@ -1,37 +1,37 @@
 ---
 
-  - name: install gpg
+  - name: Instalando gpg
     apt:
       name: gnupg,software-properties-common
       state: present
       update_cache: yes
       cache_valid_time: 3600
   
-  - name: add gpg hey
+  - name: Adicionando gpg key
     apt_key:
       url: "https://packages.grafana.com/gpg.key"
       validate_certs: no
   
-  - name: add repository
+  - name: Adicionando o repositorio do Grafana
     apt_repository:
       repo: "deb https://packages.grafana.com/oss/deb stable main"             
       state: present
       validate_certs: no
   
-  - name: install grafana
+  - name: Instalando o grafana via gerenciador de pacotes apt
     apt:
       name: grafana
       state: latest
       update_cache: yes
       cache_valid_time: 3600
   
-  - name: start service grafana-server
+  - name: Iniciando o servico grafana-server
     systemd:
       name: grafana-server
       state: started
       enabled: yes
   
-  - name: wait for service up
+  - name: Esperando o servico do grafana terminar de levantar
     uri:
       url: "http://127.0.0.1:3000"
       status_code: 200
@@ -39,7 +39,8 @@
     until: __result.status == 200
     retries: 120
     delay: 1
-  - name: change admin password for grafana gui
+  
+  - name: Alterando a senha do usuario admin do grafana para a gui
     shell : "grafana-cli admin reset-admin-password {{ grafana_admin_password }}"
     register: __command_admin
     changed_when: __command_admin.rc !=0

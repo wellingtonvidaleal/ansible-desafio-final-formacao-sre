@@ -1,5 +1,5 @@
 ---
-  - name: Instalacao e configuracao do Prometheus e Grafana
+  - name: Instalacao e configuracao do Node exporter Prometheus e Grafana
     hosts: all
     become: yes
     

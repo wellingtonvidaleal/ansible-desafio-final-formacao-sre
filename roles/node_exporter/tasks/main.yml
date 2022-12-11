@@ -1,11 +1,11 @@
 ---
 
-- name: check if node exporter exist
+- name: Checando se o node exporter ja existe
   stat:
     path: "{{ node_exporter_bin }}"
   register: __check_node_exporter_present
   
-- name: create node exporter user
+- name: Criando o usuario do node exporter
   user:
     name: "{{ node_exporter_user }}"
     append: true
@@ -13,7 +13,7 @@
     system: true
     create_home: false
 
-- name: create node exporter config dir
+- name: Criando o diretorio de configuracao do node exporter
   file:
     path: "{{ node_exporter_dir_conf }}"
     state: directory
@@ -26,14 +26,14 @@
   changed_when: false
   register: __get_node_exporter_version
   
-- name: download and unzip node exporter if not exist
+- name: Baixando e descompactando o node exporter se ele ainda nao existir
   unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
     dest: /tmp/
     remote_src: yes
     validate_certs: no
     
-- name: move the binary to the final destination
+- name: Movendo o binario para o destino final
   copy:
     src: "/tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/node_exporter"
     dest: "{{ node_exporter_bin }}"
@@ -43,12 +43,12 @@
     remote_src: yes
   when: __check_node_exporter_present.stat.exists == false or not __get_node_exporter_version.stdout == node_exporter_version
   
-- name: clean
+- name: Limpando o lixo do diretorio tmp
   file:
     path: /tmp/node_exporter-{{ node_exporter_version }}.linux-amd64/
     state: absent
     
-- name: install service
+- name: Instalando o servico do node exporter na maquina
   template:
     src: node_exporter.service.j2
     dest: /etc/systemd/system/node_exporter.service
@@ -59,13 +59,13 @@
   
 - meta: flush_handlers
   
-- name: service always started
+- name: Garantindo o estado started do servico do node exporter
   systemd:
     name: node_exporter
     state: started
     enabled: yes
 
-- name: Check if node exporter emits metrices
+- name: Checando se o servico do node exporter esta emitindo as metricas
   uri:
     url: http://127.0.0.1:9100/metrics
     method: GET
