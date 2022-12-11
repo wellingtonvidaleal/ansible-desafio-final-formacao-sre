@@ -1,8 +1,9 @@
 ---
 
-  - name: reload_daemon_and_restart_node_exporter
-    systemd:
-      name: node_exporter
-      state: restarted
-      daemon_reload: yes
-      enabled: yes
+- name: Recarregando e reiniciando o daemon do node exporter
+  systemd:
+    name: node_exporter
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  listen: reload_daemon_and_restart_node_exporter
