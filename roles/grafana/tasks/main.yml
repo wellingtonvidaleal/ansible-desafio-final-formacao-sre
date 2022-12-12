@@ -44,3 +44,46 @@
   command : "grafana-cli admin reset-admin-password {{ grafana_admin_password }}"
   register: __command_admin
   changed_when: __command_admin.rc !=0
+
+- name: Create API key
+  uri:
+    url: http://localhost:3000/api/auth/keys
+    user: "admin"
+    password: "admin"
+    force_basic_auth: true
+    method: POST
+    body_format: json
+    body: >
+      {
+        "name": "ansible",
+        "role": "Admin"
+      }
+  #no_log: true
+  register: grafana_api_key
+  tags: apikey
+
+- name: Create prometheus datasource
+  community.grafana.grafana_datasource:
+    name: Prometheus
+    url: http://localhost:3000
+    grafana_api_key: "{{ grafana_api_key.json.key }}"
+    ds_type: prometheus
+    ds_url: http://localhost:9090
+
+- name: Create NGINX dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: http://localhost:3000
+    grafana_api_key: "{{ grafana_api_key.json.key }}"
+    commit_message: Updated by Ansible
+    overwrite: yes
+    dashboard_url: https://raw.githubusercontent.com/nginxinc/nginx-prometheus-exporter/v0.11.0/grafana/dashboard.json
+  tags: dashboard
+
+- name: Create node exporter full dashboard
+  community.grafana.grafana_dashboard:
+    grafana_url: http://localhost:3000
+    grafana_api_key: "{{ grafana_api_key.json.key }}"
+    commit_message: Updated by Ansible
+    overwrite: yes
+    dashboard_url: https://raw.githubusercontent.com/rfmoz/grafana-dashboards/master/prometheus/node-exporter-full.json
+  tags: dashboard

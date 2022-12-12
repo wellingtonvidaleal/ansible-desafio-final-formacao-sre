@@ -10,6 +10,10 @@ scrape_configs:
         access_key: {{ prometheus_iam_access_key }}
         secret_key: {{ prometheus_iam_secret_key }}
         port: 9100
+      - region: us-east-1
+        access_key: {{ prometheus_iam_access_key }}
+        secret_key: {{ prometheus_iam_secret_key }}
+        port: 9113
     relabel_configs:
         # Only monitor instances with a Name starting with "SD Demo"
       - source_labels: [__meta_ec2_tag_Name]
