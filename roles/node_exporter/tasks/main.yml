@@ -72,8 +72,8 @@
     status_code: 200
 
 - name: Instalando o prometheus-nginx-vts-exporter
-    apt:
-      pkg:
-      - prometheus-nginx-vts-exporter
-      update_cache: yes
-      state: present
+  apt:
+    pkg:
+    - prometheus-nginx-vts-exporter
+    update_cache: yes
+    state: present
