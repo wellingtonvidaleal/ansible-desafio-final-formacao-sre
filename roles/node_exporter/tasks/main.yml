@@ -20,7 +20,7 @@
     owner: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
     
-- name: if node exporter exist get version
+- name: Se o node exporter existir pegar versao
   shell: "cat /etc/systemd/system/node_exporter.service | grep Version | sed s/'.*Version '//g"
   when: __check_node_exporter_present.stat.exists == true
   changed_when: false
