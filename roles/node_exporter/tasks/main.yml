@@ -70,3 +70,10 @@
     url: http://127.0.0.1:9100/metrics
     method: GET
     status_code: 200
+
+- name: Instalando o prometheus-nginx-vts-exporter
+    apt:
+      pkg:
+      - prometheus-nginx-vts-exporter
+      update_cache: yes
+      state: present

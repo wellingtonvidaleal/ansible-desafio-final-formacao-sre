@@ -13,11 +13,11 @@ scrape_configs:
       - region: us-east-1
         access_key: {{ prometheus_iam_access_key }}
         secret_key: {{ prometheus_iam_secret_key }}
-        port: 9113
+        port: 9913
     relabel_configs:
         # Only monitor instances with a Name starting with "SD Demo"
       - source_labels: [__meta_ec2_tag_Name]
-        regex: wordpress*
+        regex: production-wordpress*
         action: keep
         # Use the instance ID as the instance label
       - source_labels: [__meta_ec2_instance_id]
