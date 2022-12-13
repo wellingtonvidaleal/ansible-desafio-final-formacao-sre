@@ -1,0 +1,7 @@
+---
+  - name: Instalacao e configuracao do nginx_prometheus_exporter
+    hosts: all
+    become: yes
+    
+    roles:
+      - nginx_prometheus_exporter
