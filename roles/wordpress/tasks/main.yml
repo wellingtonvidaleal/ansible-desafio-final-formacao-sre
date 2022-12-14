@@ -67,7 +67,6 @@
       path: /var/www/html/wordpress/wp-content/uploads
       src: "{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/"
       fstype: nfs4
-      #opts: nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0
       opts: rw,sync,hard
       state: mounted
 
@@ -83,15 +82,6 @@
       path: /etc/fstab
       state: present
       line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /var/www/html/wordpress/wp-content/uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
-
-  # - name: Criando o link simbolico do diretorio uploads
-  #   ansible.builtin.file:
-  #     src: /var/www/html/wordpress/wp-content/uploads
-  #     dest: /uploads
-  #     force: yes
-  #     owner: www-data
-  #     group: www-data
-  #     state: link
 
   - name: Alterando o arquivo php.ini
     template:
