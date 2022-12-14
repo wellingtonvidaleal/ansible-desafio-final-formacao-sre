@@ -59,7 +59,7 @@
       state: directory
       owner: www-data
       group: www-data
-      mode: '0755'
+      mode: '0777'
       recurse: yes
 
   - name: Criando o link simbolico do diretorio uploads
