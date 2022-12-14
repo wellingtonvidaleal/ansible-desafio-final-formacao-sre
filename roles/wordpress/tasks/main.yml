@@ -62,7 +62,7 @@
       mode: '0777'
       recurse: yes
     
-  - name: Montando o EFS
+  - name: Montando o EFS no diretorio uploads
     mount:
       path: /var/www/html/wordpress/wp-content/uploads
       src: "{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/"
