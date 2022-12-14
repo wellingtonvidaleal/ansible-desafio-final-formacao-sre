@@ -62,6 +62,15 @@
       mode: '0777'
       recurse: yes
 
+  - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
+    ansible.builtin.lineinfile:
+      path: /etc/fstab
+      state: present
+      line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
+  
+  - name: Montando o EFS
+    shell: "mount -a"
+
   - name: Criando o link simbolico do diretorio uploads
     ansible.builtin.file:
       src: /var/www/html/wordpress/wp-content/uploads
@@ -70,12 +79,6 @@
       group: www-data
       state: link
 
-  - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
-    ansible.builtin.lineinfile:
-      path: /etc/fstab
-      state: present
-      line: '{{ file_system_id }}.efs.{{ aws_region }}.amazonaws.com:/ /uploads nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0'
-  
   - name: Alterando o arquivo php.ini
     template:
       src: php.ini.j2
