@@ -69,10 +69,14 @@
       fstype: nfs4
       #opts: nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport,_netdev 0 0
       opts: rw,sync,hard
+      state: mounted
+
+  - name: Alterando dono grupo e permissoes no diretorio uploads depois de montar o EFS
+    ansible.builtin.file:
+      path: /var/www/html/wordpress/wp-content/uploads
       owner: www-data
       group: www-data
       mode: '0777'
-      state: mounted
 
   - name: Definindo a montagem do storage EFS em auto inicializacao mapeando para o diretório upload
     ansible.builtin.lineinfile:
